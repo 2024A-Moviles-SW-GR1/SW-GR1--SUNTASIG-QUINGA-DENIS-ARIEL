@@ -51,7 +51,7 @@ fun main() {
     //Named Parameters
     //calcularSueldo(sueldo, tasa, bonoEspecial)
     calcularSueldo(sueldo = 10.00, bonoEspecial = 20.00)
-    calcularSueldo(bonoEspecial = 20.00, sueldo = 10.00, tasa = 14.00
+    calcularSueldo(bonoEspecial = 20.00, sueldo = 10.00, tasa = 14.00)
 
 
 }
@@ -154,7 +154,7 @@ abstract class NumerosJava {
 
         }
 
-        val historialSumas = arrayList0f<Int>()
+        val historialSumas = arrayListOf<Int>()
         fun agregarHistorial(valorTotalSuma: Int) {
             historialSumas.add(valorTotalSuma)
 
