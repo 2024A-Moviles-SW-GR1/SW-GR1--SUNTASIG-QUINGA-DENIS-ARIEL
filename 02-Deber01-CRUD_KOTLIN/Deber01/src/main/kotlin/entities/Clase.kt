@@ -82,7 +82,7 @@ data class Clase(
         // Muestra todos los estudiantes en una lista de estudiantes
         fun leerEstudiantes(estudiantes: List<Estudiante>) {
             estudiantes.forEach { estudiante ->
-                println("\tEstudiante ID: ${estudiante.id}, Nombre: ${estudiante.nombre}, Fecha de Nacimiento: ${estudiante.fechaNacimiento}, Grado: ${estudiante.grado}, Promedio: ${estudiante.promedio}")
+                println("\tEstudiante ID: ${estudiante.id}, Nombre: ${estudiante.nombre}, Fecha de Nacimiento: ${estudiante.fechaNacimiento}, Semestre: ${estudiante.semestre}, Promedio: ${estudiante.promedio}")
             }
         }
     }

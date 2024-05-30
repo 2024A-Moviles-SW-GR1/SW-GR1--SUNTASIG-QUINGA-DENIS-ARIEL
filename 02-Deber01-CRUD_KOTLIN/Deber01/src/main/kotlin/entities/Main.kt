@@ -10,12 +10,16 @@ fun main() {
 
     while (true) {
         mostrarMenu()
+        while (!scanner.hasNextInt()) {
+            println("Por favor, ingrese un número válido.")
+            scanner.next()
+        }
         when (scanner.nextInt()) {
             1 -> crearClase(scanner, clases)
             2 -> crearEstudiante(scanner, clases)
             3 -> Clase.leerClases(clases)
             4 -> leerEstudiantesDeClase(scanner, clases)
-            5 -> leerTodosLosEstudiantes()
+            5 -> leerTodosLosEstudiantes(clases)
             6 -> actualizarClase(scanner, clases)
             7 -> actualizarEstudiante(scanner, clases)
             8 -> eliminarClase(scanner, clases)
@@ -34,7 +38,7 @@ fun mostrarMenu() {
     println("Bienvenido al Menú de Opciones CRUD para Clases y Estudiantes")
     println("1. Crear una nueva Clase")
     println("2. Registrar un nuevo Estudiante")
-    println("3. Visualizar todas las Clases existentes")
+    println("3. Visualizar todas las Clases existentes junto con sus estudiantes")
     println("4. Visualizar los Estudiantes de una Clase específica")
     println("5. Visualizar todos los Estudiantes registrados")
     println("6. Actualizar la información de una Clase")
@@ -47,6 +51,10 @@ fun mostrarMenu() {
 
 fun crearClase(scanner: Scanner, clases: MutableList<Clase>) {
     println("Ingrese el ID de la Clase:")
+    while (!scanner.hasNextInt()) {
+        println("Por favor, ingrese un número válido.")
+        scanner.next()
+    }
     val id = scanner.nextInt()
     // Comprobar si el ID ya existe
     if (clases.any { it.id == id }) {
@@ -66,17 +74,25 @@ fun crearClase(scanner: Scanner, clases: MutableList<Clase>) {
 
 fun crearEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
     println("Ingrese el ID de la Clase a la que pertenece el Estudiante:")
+    while (!scanner.hasNextInt()) {
+        println("Por favor, ingrese un número válido.")
+        scanner.next()
+    }
     val claseId = scanner.nextInt()
     val clase = clases.find { it.id == claseId }
     if (clase != null) {
         println("Ingrese el ID del Estudiante:")
+        while (!scanner.hasNextInt()) {
+            println("Por favor, ingrese un número válido.")
+            scanner.next()
+        }
         val id = scanner.nextInt()
         // Comprobar si el ID ya existe
         if (clase.estudiantes.any { it.id == id }) {
             println("Error: Ya existe un estudiante con el ID proporcionado.")
             return
         }
-        scanner.nextLine() // Consume newline
+        scanner.nextLine()
         println("Ingrese el Nombre del Estudiante:")
         val nombre = scanner.nextLine()
         var fechaNacimiento: LocalDate? = null
@@ -89,11 +105,27 @@ fun crearEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
                 println("Fecha no válida. Por favor, intente de nuevo.")
             }
         }
-        println("Ingrese el Grado del Estudiante:")
-        val grado = scanner.nextInt()
+        println("Ingrese el Semestre del Estudiante:")
+        while (!scanner.hasNextInt()) {
+            println("Por favor, ingrese un número válido.")
+            scanner.next()
+        }
+        var semestre = scanner.nextInt()
+        while (semestre < 1 || semestre > 9) {
+            println("Por favor, ingrese un semestre válido (1-9).")
+            while (!scanner.hasNextInt()) {
+                println("Por favor, ingrese un número válido.")
+                scanner.next()
+            }
+            semestre = scanner.nextInt()
+        }
         println("Ingrese el Promedio del Estudiante:")
+        while (!scanner.hasNextDouble()) {
+            println("Por favor, ingrese un número válido.")
+            scanner.next()
+        }
         val promedio = scanner.nextDouble()
-        val nuevoEstudiante = Estudiante(id, nombre, fechaNacimiento, grado, promedio)
+        val nuevoEstudiante = Estudiante(id, nombre, fechaNacimiento, semestre, promedio)
         Estudiante.crearEstudiante(clase.estudiantes, nuevoEstudiante)
         Clase.guardarClases(clases) // Guardar cambios
     } else {
@@ -103,6 +135,10 @@ fun crearEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
 
 fun leerEstudiantesDeClase(scanner: Scanner, clases: MutableList<Clase>) {
     println("Ingrese el ID de la Clase cuyos estudiantes desea ver:")
+    while (!scanner.hasNextInt()) {
+        println("Por favor, ingrese un número válido.")
+        scanner.next()
+    }
     val claseId = scanner.nextInt()
     val clase = clases.find { it.id == claseId }
     if (clase != null) {
@@ -112,13 +148,28 @@ fun leerEstudiantesDeClase(scanner: Scanner, clases: MutableList<Clase>) {
     }
 }
 
-fun leerTodosLosEstudiantes() {
-    val estudiantes = Estudiante.cargarEstudiantes()
-    Estudiante.leerEstudiantes(estudiantes)
+fun leerTodosLosEstudiantes(clases: MutableList<Clase>) {
+    if (clases.isEmpty()) {
+        println("No hay clases para mostrar.")
+    } else {
+        clases.forEach { clase ->
+            if (clase.estudiantes.isEmpty()) {
+                println("\tNo hay estudiantes en esta clase.")
+            } else {
+                clase.estudiantes.forEach { estudiante ->
+                    println("Estudiante ID: ${estudiante.id}, Nombre: ${estudiante.nombre}, Fecha de Nacimiento: ${estudiante.fechaNacimiento}, Semestre: ${estudiante.semestre}, Promedio: ${estudiante.promedio}")
+                }
+            }
+        }
+    }
 }
 
 fun actualizarClase(scanner: Scanner, clases: MutableList<Clase>) {
     println("Ingrese el ID de la Clase a actualizar:")
+    while (!scanner.hasNextInt()) {
+        println("Por favor, ingrese un número válido.")
+        scanner.next()
+    }
     val id = scanner.nextInt()
     // Comprobar si el ID ya existe
     if (clases.none { it.id == id }) {
@@ -148,10 +199,18 @@ fun actualizarClase(scanner: Scanner, clases: MutableList<Clase>) {
 
 fun actualizarEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
     println("Ingrese el ID de la Clase a la que pertenece el Estudiante:")
+    while (!scanner.hasNextInt()) {
+        println("Por favor, ingrese un número válido.")
+        scanner.next()
+    }
     val claseId = scanner.nextInt()
     val clase = clases.find { it.id == claseId }
     if (clase != null) {
         println("Ingrese el ID del Estudiante a actualizar:")
+        while (!scanner.hasNextInt()) {
+            println("Por favor, ingrese un número válido.")
+            scanner.next()
+        }
         val id = scanner.nextInt()
         val estudiante = clase.estudiantes.find { it.id == id }
         if (estudiante != null) {
@@ -168,18 +227,34 @@ fun actualizarEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
                     println("Fecha no válida. Por favor, intente de nuevo.")
                 }
             }
-            println("Ingrese el Nuevo Grado del Estudiante:")
-            val grado = scanner.nextInt()
+            println("Ingrese el Nuevo Semestre del Estudiante:")
+            while (!scanner.hasNextInt()) {
+                println("Por favor, ingrese un número válido.")
+                scanner.next()
+            }
+            var semestre = scanner.nextInt()
+            while (semestre < 1 || semestre > 9) {
+                println("Por favor, ingrese un semestre válido (1-9).")
+                while (!scanner.hasNextInt()) {
+                    println("Por favor, ingrese un número válido.")
+                    scanner.next()
+                }
+                semestre = scanner.nextInt()
+            }
             println("Ingrese el Nuevo Promedio del Estudiante:")
+            while (!scanner.hasNextDouble()) {
+                println("Por favor, ingrese un número válido.")
+                scanner.next()
+            }
             val promedio = scanner.nextDouble()
-            if (nombre.isNotBlank() && grado > 0 && promedio >= 0) {
+            if (nombre.isNotBlank() && semestre > 0 && promedio >= 0) {
                 estudiante.nombre = nombre
                 estudiante.fechaNacimiento = fechaNacimiento
-                estudiante.grado = grado
+                estudiante.semestre = semestre
                 estudiante.promedio = promedio
                 Clase.guardarClases(clases) // Guardar cambios
             } else {
-                println("Nombre no puede estar vacío, grado debe ser mayor que 0 y promedio no puede ser negativo.")
+                println("Nombre no puede estar vacío, semestre debe ser mayor que 0 y promedio no puede ser negativo.")
             }
         } else {
             println("Estudiante no encontrado.")
@@ -191,6 +266,10 @@ fun actualizarEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
 
 fun eliminarClase(scanner: Scanner, clases: MutableList<Clase>) {
     println("Ingrese el ID de la Clase a eliminar:")
+    while (!scanner.hasNextInt()) {
+        println("Por favor, ingrese un número válido.")
+        scanner.next()
+    }
     val id = scanner.nextInt()
     val clase = clases.find { it.id == id }
     if (clase != null) {
@@ -205,10 +284,18 @@ fun eliminarClase(scanner: Scanner, clases: MutableList<Clase>) {
 
 fun eliminarEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
     println("Ingrese el ID de la Clase a la que pertenece el Estudiante:")
+    while (!scanner.hasNextInt()) {
+        println("Por favor, ingrese un número válido.")
+        scanner.next()
+    }
     val claseId = scanner.nextInt()
     val clase = clases.find { it.id == claseId }
     if (clase != null) {
         println("Ingrese el ID del Estudiante a eliminar:")
+        while (!scanner.hasNextInt()) {
+            println("Por favor, ingrese un número válido.")
+            scanner.next()
+        }
         val id = scanner.nextInt()
         Estudiante.eliminarEstudiante(clase.estudiantes, id)
         Clase.guardarClases(clases) // Guardar cambios

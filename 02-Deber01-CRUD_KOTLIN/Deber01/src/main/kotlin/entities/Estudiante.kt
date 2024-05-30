@@ -7,7 +7,7 @@ data class Estudiante(
     var id: Int,
     var nombre: String,
     var fechaNacimiento: LocalDate,
-    var grado: Int,
+    var semestre: Int,
     var promedio: Double
 ) : Serializable {
     companion object {
@@ -39,11 +39,11 @@ data class Estudiante(
 
         // Crea un nuevo estudiante y lo agrega a la lista de estudiantes
         fun crearEstudiante(estudiantes: MutableList<Estudiante>, estudiante: Estudiante) {
-            if (estudiante.nombre.isNotBlank() && estudiante.grado > 0 && estudiante.promedio >= 0) {
+            if (estudiante.nombre.isNotBlank() && estudiante.promedio >= 0) {
                 estudiantes.add(estudiante)
                 guardarEstudiantes(estudiantes)
             } else {
-                println("Nombre no puede estar vacío, grado debe ser mayor que 0 y promedio no puede ser negativo.")
+                println("Nombre no puede estar vacío y promedio no puede ser negativo.")
             }
         }
 
@@ -51,14 +51,14 @@ data class Estudiante(
         fun actualizarEstudiante(estudiantes: MutableList<Estudiante>, id: Int, nuevoEstudiante: Estudiante) {
             val estudiante = estudiantes.find { it.id == id }
             if (estudiante != null) {
-                if (nuevoEstudiante.nombre.isNotBlank() && nuevoEstudiante.grado > 0 && nuevoEstudiante.promedio >= 0) {
+                if (nuevoEstudiante.nombre.isNotBlank() && nuevoEstudiante.promedio >= 0) {
                     estudiante.nombre = nuevoEstudiante.nombre
                     estudiante.fechaNacimiento = nuevoEstudiante.fechaNacimiento
-                    estudiante.grado = nuevoEstudiante.grado
+                    estudiante.semestre = nuevoEstudiante.semestre
                     estudiante.promedio = nuevoEstudiante.promedio
                     guardarEstudiantes(estudiantes)
                 } else {
-                    println("Nombre no puede estar vacío, grado debe ser mayor que 0 y promedio no puede ser negativo.")
+                    println("Nombre no puede estar vacío y promedio no puede ser negativo.")
                 }
             } else {
                 println("Error: No se encontró un estudiante con el ID proporcionado.")
@@ -87,7 +87,7 @@ data class Estudiante(
                 println("No hay estudiantes para mostrar.")
             } else {
                 estudiantes.forEach { estudiante ->
-                    println("Estudiante ID: ${estudiante.id}, Nombre: ${estudiante.nombre}, Fecha de Nacimiento: ${estudiante.fechaNacimiento}, Grado: ${estudiante.grado}, Promedio: ${estudiante.promedio}")
+                    println("Estudiante ID: ${estudiante.id}, Nombre: ${estudiante.nombre}, Fecha de Nacimiento: ${estudiante.fechaNacimiento}, Semestre: ${estudiante.semestre}, Promedio: ${estudiante.promedio}")
                 }
             }
         }
