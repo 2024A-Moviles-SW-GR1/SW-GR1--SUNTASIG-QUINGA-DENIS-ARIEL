@@ -24,6 +24,7 @@ fun main() {
                 println("El programa ha finalizado exitosamente. ¡Gracias por usar nuestra aplicación!")
                 break
             }
+
             else -> println("Lo siento, la opción que ingresaste no es válida. Por favor, intenta de nuevo con una opción válida.")
         }
     }
@@ -82,7 +83,8 @@ fun crearEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
         while (fechaNacimiento == null) {
             println("Ingrese la Fecha de Nacimiento del Estudiante (formato AAAA-MM-DD):")
             try {
-                fechaNacimiento = LocalDate.parse(scanner.nextLine()) // Convierte la cadena ingresada en un objeto LocalDate
+                fechaNacimiento =
+                    LocalDate.parse(scanner.nextLine()) // Convierte la cadena ingresada en un objeto LocalDate
             } catch (e: DateTimeParseException) {
                 println("Fecha no válida. Por favor, intente de nuevo.")
             }
@@ -160,7 +162,8 @@ fun actualizarEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
             while (fechaNacimiento == null) {
                 println("Ingrese la Nueva Fecha de Nacimiento del Estudiante (formato AAAA-MM-DD):")
                 try {
-                    fechaNacimiento = LocalDate.parse(scanner.nextLine()) // Convierte la cadena ingresada en un objeto LocalDate
+                    fechaNacimiento =
+                        LocalDate.parse(scanner.nextLine()) // Convierte la cadena ingresada en un objeto LocalDate
                 } catch (e: DateTimeParseException) {
                     println("Fecha no válida. Por favor, intente de nuevo.")
                 }
