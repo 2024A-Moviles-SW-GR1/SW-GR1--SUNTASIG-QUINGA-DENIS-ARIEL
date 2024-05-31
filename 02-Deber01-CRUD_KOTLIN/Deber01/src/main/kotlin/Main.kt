@@ -1,5 +1,5 @@
-package entities
-
+import entities.Clase
+import entities.Estudiante
 import java.time.LocalDate
 import java.time.format.DateTimeParseException
 import java.util.*
