@@ -37,13 +37,21 @@ data class Estudiante(
             }
         }
 
-        // Crea un nuevo estudiante y lo agrega a la lista de estudiantes
-        fun crearEstudiante(estudiantes: MutableList<Estudiante>, estudiante: Estudiante) {
-            if (estudiante.nombre.isNotBlank() && estudiante.promedio >= 0) {
-                estudiantes.add(estudiante)
-                guardarEstudiantes(estudiantes)
+        // Valida los datos del estudiante
+        fun validarEstudiante(estudiante: Estudiante): Boolean {
+            return if (estudiante.nombre.isNotBlank() && estudiante.promedio >= 0) {
+                true
             } else {
                 println("Nombre no puede estar vacío y promedio no puede ser negativo.")
+                false
+            }
+        }
+
+        // Crea un nuevo estudiante y lo agrega a la lista de estudiantes
+        fun crearEstudiante(estudiantes: MutableList<Estudiante>, estudiante: Estudiante) {
+            if (validarEstudiante(estudiante)) {
+                estudiantes.add(estudiante)
+                guardarEstudiantes(estudiantes)
             }
         }
 
@@ -51,14 +59,12 @@ data class Estudiante(
         fun actualizarEstudiante(estudiantes: MutableList<Estudiante>, id: Int, nuevoEstudiante: Estudiante) {
             val estudiante = estudiantes.find { it.id == id }
             if (estudiante != null) {
-                if (nuevoEstudiante.nombre.isNotBlank() && nuevoEstudiante.promedio >= 0) {
+                if (validarEstudiante(nuevoEstudiante)) {
                     estudiante.nombre = nuevoEstudiante.nombre
                     estudiante.fechaNacimiento = nuevoEstudiante.fechaNacimiento
                     estudiante.semestre = nuevoEstudiante.semestre
                     estudiante.promedio = nuevoEstudiante.promedio
                     guardarEstudiantes(estudiantes)
-                } else {
-                    println("Nombre no puede estar vacío y promedio no puede ser negativo.")
                 }
             } else {
                 println("Error: No se encontró un estudiante con el ID proporcionado.")

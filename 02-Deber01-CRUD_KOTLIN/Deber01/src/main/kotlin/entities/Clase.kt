@@ -38,13 +38,21 @@ data class Clase(
             }
         }
 
-        // Crea una nueva clase y la agrega a la lista de clases
-        fun crearClase(clases: MutableList<Clase>, clase: Clase) {
-            if (clase.nombreGrupo.isNotBlank() && clase.descripcion.isNotBlank()) {
-                clases.add(clase)
-                guardarClases(clases)
+        // Valida los datos de la clase
+        fun validarClase(clase: Clase): Boolean {
+            return if (clase.nombreGrupo.isNotBlank() && clase.descripcion.isNotBlank()) {
+                true
             } else {
                 println("Nombre de grupo y descripción no pueden estar vacíos.")
+                false
+            }
+        }
+
+        // Crea una nueva clase y la agrega a la lista de clases
+        fun crearClase(clases: MutableList<Clase>, clase: Clase) {
+            if (validarClase(clase)) {
+                clases.add(clase)
+                guardarClases(clases)
             }
         }
 
@@ -52,15 +60,13 @@ data class Clase(
         fun actualizarClase(clases: MutableList<Clase>, id: Int, nuevaClase: Clase) {
             val clase = clases.find { it.id == id }
             if (clase != null) {
-                if (nuevaClase.nombreGrupo.isNotBlank() && nuevaClase.descripcion.isNotBlank()) {
+                if (validarClase(nuevaClase)) {
                     clase.nombreGrupo = nuevaClase.nombreGrupo
                     clase.descripcion = nuevaClase.descripcion
                     clase.fechaInicio = nuevaClase.fechaInicio
                     clase.fechaFin = nuevaClase.fechaFin
                     clase.estudiantes = nuevaClase.estudiantes
                     guardarClases(clases)
-                } else {
-                    println("Nombre de grupo y descripción no pueden estar vacíos.")
                 }
             }
         }
