@@ -1,3 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="background_color">#8BC34A</color> <!-- Red -->
+    <color name="text_color">#320F0F</color> <!-- White -->
 </resources>
