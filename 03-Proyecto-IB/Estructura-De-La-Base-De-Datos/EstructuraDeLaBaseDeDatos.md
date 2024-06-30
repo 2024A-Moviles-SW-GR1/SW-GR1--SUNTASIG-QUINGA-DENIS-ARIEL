@@ -14,7 +14,7 @@
 
 ---
 **TIPO DE INSTRUMENTO:** Proyecto<br>
-**TÍTULO:** Historias De Usuario<br>
+**TÍTULO:** Estructura de la base de datos<br>
 **FECHA DE ENTREGA:** 30 de junio de 2024<br>
 **Estudiantes:**<br>
 
