@@ -7,16 +7,16 @@
 
 ---
 
-**PERÍODO ACADÉMICO:** 2024-A
-**ASIGNATURA:** Aplicaciones Móviles
-**GRUPO:** GR1SW
-**Docente:** VICENTE ADRIAN EGUEZ SARZOSA
+**PERÍODO ACADÉMICO:** 2024-A<br>
+**ASIGNATURA:** Aplicaciones Móviles<br>
+**GRUPO:** GR1SW<br>
+**Docente:** VICENTE ADRIAN EGUEZ SARZOSA<br>
 
 ---
-**TIPO DE INSTRUMENTO:** Proyecto
-**TÍTULO:** Historias De Usuario
-**FECHA DE ENTREGA:** 30 de junio de 2024
-**Estudiantes:**
+**TIPO DE INSTRUMENTO:** Proyecto<br>
+**TÍTULO:** Historias De Usuario<br>
+**FECHA DE ENTREGA:** 30 de junio de 2024<br>
+**Estudiantes:**<br>
 
 - Chalacama Erick
 - Suntasig Ariel
