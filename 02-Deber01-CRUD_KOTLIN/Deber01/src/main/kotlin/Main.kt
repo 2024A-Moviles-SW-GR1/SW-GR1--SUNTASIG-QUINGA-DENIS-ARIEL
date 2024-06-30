@@ -237,4 +237,7 @@ fun eliminarEstudiante(scanner: Scanner, clases: MutableList<Clase>) {
     } else {
         println("Clase no encontrada.")
     }
+
+
+
 }
