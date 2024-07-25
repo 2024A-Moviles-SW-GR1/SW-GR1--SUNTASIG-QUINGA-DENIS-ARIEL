@@ -3,8 +3,6 @@ package com.example.a2024aswgr1sqda
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 
 class ACicloVida : AppCompatActivity() {
@@ -14,7 +12,7 @@ class ACicloVida : AppCompatActivity() {
     fun mostrarSnackbar(texto: String) {
         textoGlobal += texto
         val snack = Snackbar.make(
-            findViewById(R.id.cl_ciclo_vida), textoGlobal, Snackbar.LENGTH_INDEFINITE
+            findViewById(R.id.id_layout_main), textoGlobal, Snackbar.LENGTH_INDEFINITE
         )
         snack.show()
     }

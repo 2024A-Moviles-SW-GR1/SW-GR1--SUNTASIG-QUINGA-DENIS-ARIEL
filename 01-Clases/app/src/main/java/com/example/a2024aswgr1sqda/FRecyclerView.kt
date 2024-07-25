@@ -1,0 +1,45 @@
+package com.example.a2024aswgr1sqda
+
+import android.os.Bundle
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
+
+class FRecyclerView : AppCompatActivity() {
+
+    var totallikes = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_frecycle_view)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.frecycle_view)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+    }
+
+    fun inicializarRecyclerView(){
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_entrenadores)
+        val adaptador = FRecyclerViewAdaptadorNombreDescripcion(
+            this,
+            BBaseDatosMemoria.arregloBEntrenador,
+            recyclerView
+        )
+        recyclerView.adapter = adaptador
+        recyclerView.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        adaptador.notifyDataSetChanged()
+    }
+
+    fun aumentarTotalLikes(){
+        totallikes = totallikes + 1
+        val totalLikesTextView = findViewById<TextView>(R.id.tv_total_likes)
+        totalLikesTextView.text = totallikes.toString()
+    }
+}
